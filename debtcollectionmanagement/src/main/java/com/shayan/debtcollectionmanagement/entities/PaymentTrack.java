@@ -19,6 +19,7 @@ public class PaymentTrack {
 	
 	@Id
 	private String paymentTrackId;
+	
 	private String loanAppId;
 	private int month_no;
 	

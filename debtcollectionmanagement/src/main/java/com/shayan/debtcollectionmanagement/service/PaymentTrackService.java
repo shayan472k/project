@@ -1,5 +1,15 @@
 package com.shayan.debtcollectionmanagement.service;
 
-public interface PaymentTrackService {
+import java.util.List;
 
+import com.shayan.debtcollectionmanagement.entities.*;
+
+public interface PaymentTrackService {
+	
+	public List<PaymentTrack> getpayment();
+	
+	public PaymentTrack getpay(String paymentTrackId);
+	
+	public PaymentTrack addpay(PaymentTrack pt);
+	
 }

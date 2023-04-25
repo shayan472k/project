@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shayan.debtcollectionmanagement.dao.PaymentTrackRepository;
 import com.shayan.debtcollectionmanagement.entities.PaymentTrack;
+import com.shayan.debtcollectionmanagement.service.PaymentTrackService;
 
 import antlr.collections.List;
 
@@ -19,15 +21,18 @@ import antlr.collections.List;
 public class PaymentTrackController {
 	
 	@Autowired
-	private PaymentTrackRepository ptrepository;
+	private PaymentTrackService pts;
 	
-	ArrayList<PaymentTrack> ptr=new ArrayList<>();
+	//@Autowired
+	//private PaymentTrackRepository ptrepository;
+	
+	//ArrayList<PaymentTrack> ptr=new ArrayList<>();
 	
 	@GetMapping("/test")
 	//@ResponseBody
 	public String test()
 	{
-		PaymentTrack pt=new PaymentTrack();
+		//PaymentTrack pt=new PaymentTrack();
 		//pt.setPaymentTrackId("1");
 		//pt.setLoanAppId("1");
 		//pt.setMonth_no(1);
@@ -38,12 +43,24 @@ public class PaymentTrackController {
 	@GetMapping("/get")
 	public ArrayList<PaymentTrack> getPtr()
 	{
-		return ptr;
+		return (ArrayList<PaymentTrack>) this.pts.getpayment();
 	}
 	
-	@PostMapping("ptr/add")
+	@GetMapping("/get/{paymentTrackId}")
+	public PaymentTrack getpay(@PathVariable String paymentTrackId)
+	{
+		return this.pts.getpay(paymentTrackId);
+	}
+	
+	@PostMapping("/postpay")
+	public PaymentTrack addpay(@RequestBody PaymentTrack pt)
+	{
+		return this.pts.addpay(pt);
+	}
+	
+	/*@PostMapping("ptr/add")
 	public PaymentTrack addPtr(@RequestBody PaymentTrack ptrr) {
 		ptr.add(ptrr);
 		return ptrr;
-	}
+	}*/
 }
