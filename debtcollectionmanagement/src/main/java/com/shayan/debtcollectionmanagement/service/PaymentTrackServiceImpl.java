@@ -36,15 +36,16 @@ public class PaymentTrackServiceImpl implements PaymentTrackService {
 		return pt;
 	}
 	
-	public void deletepay(String key)
+	public void deletepay(String paymentTrackId)
 	{
-		PaymentTrack entity=ptr.getReferenceById(key);
+		PaymentTrack entity=ptr.findById(paymentTrackId);
 		ptr.delete(entity);
 	}
 
 	@Override
 	public PaymentTrack getpay(String paymentTrackId) {
-		return ptr.getReferenceById(paymentTrackId);
+		PaymentTrack pt=ptr.findById(paymentTrackId).orElseThrow(()->new RuntimeException());
+		return pt;
 	}
 
 	@Override
