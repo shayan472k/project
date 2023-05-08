@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.shayan.debtcollectionmanagement.entities.*;
 
+//creating an interface of service layer implementation for loose coupling  
 public interface PaymentTrackService {
 	
 	public List<PaymentTrack> getpayment();

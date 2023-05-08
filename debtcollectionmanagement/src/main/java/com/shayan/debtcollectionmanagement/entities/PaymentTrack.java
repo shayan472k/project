@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Value;
 
+//creating a class as an entity to store into the database
+
 @Entity
 @Table(name="paymentTrack")
 public class PaymentTrack {
@@ -17,19 +19,29 @@ public class PaymentTrack {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public PaymentTrack(String paymentTrackId, String loanAppId,int month_no)
+	{
+		this.paymentTrackId=paymentTrackId;
+		this.loanAppId=loanAppId;
+		this.month_no=month_no;
+	}
+	
+	//declaring the primary key
 	@Id
 	private String paymentTrackId;
 	
 	private String loanAppId;
 	private int month_no;
 	
-	@Value("Not Recieved")
+	//default value of status is set to Not Received
 	
+	@Value("Not Received")
 	private String status;
 	
 	private Date dueDateofPayment;
 	private Date paymentRecieveDate;
 	
+	//creating getters and setters for the class variables
 	public String getPaymentTrackId() {
 		return paymentTrackId;
 	}

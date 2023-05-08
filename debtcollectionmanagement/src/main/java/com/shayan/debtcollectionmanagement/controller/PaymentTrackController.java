@@ -17,9 +17,12 @@ import com.shayan.debtcollectionmanagement.service.PaymentTrackService;
 
 import antlr.collections.List;
 
+//creating a controller class to send requests from users to service layers and so forth
+
 @RestController
 public class PaymentTrackController {
 	
+	//creating a dependency object of the service layer
 	@Autowired
 	private PaymentTrackService pts;
 	
@@ -40,18 +43,21 @@ public class PaymentTrackController {
 		return "Working";
 	}
 	
+	//creating a GET request for getting all the records in the table from the table payment_track
 	@GetMapping("/get")
 	public ArrayList<PaymentTrack> getPtr()
 	{
 		return (ArrayList<PaymentTrack>) this.pts.getpayment();
 	}
 	
+	//creating a GET request for getting a row from the table payment_track
 	@GetMapping("/get/{paymentTrackId}")
 	public PaymentTrack getpay(@PathVariable String paymentTrackId)
 	{
 		return this.pts.getpay(paymentTrackId);
 	}
 	
+	//creating a POST request for adding data into the table payment_track
 	@PostMapping("/postpay")
 	public PaymentTrack addpay(@RequestBody PaymentTrack pt)
 	{
