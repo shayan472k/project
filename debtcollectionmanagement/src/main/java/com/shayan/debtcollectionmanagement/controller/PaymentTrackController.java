@@ -26,37 +26,29 @@ public class PaymentTrackController {
 	@Autowired
 	private PaymentTrackService pts;
 	
-	//@Autowired
-	//private PaymentTrackRepository ptrepository;
-	
-	//ArrayList<PaymentTrack> ptr=new ArrayList<>();
-	
+	//A simple test functution to check, whether the controller is working or not
 	@GetMapping("/test")
-	//@ResponseBody
 	public String test()
 	{
-		//PaymentTrack pt=new PaymentTrack();
-		//pt.setPaymentTrackId("1");
-		//pt.setLoanAppId("1");
-		//pt.setMonth_no(1);
-		//ptrepository.save(pt);
 		return "Working";
 	}
 	
 	//creating a GET request for getting all the records in the table from the table payment_track
-	@GetMapping("/get")
+	@GetMapping("/api/debtCollection/getloanusers")
 	public ArrayList<PaymentTrack> getPtr()
 	{
 		return (ArrayList<PaymentTrack>) this.pts.getpayment();
 	}
 	
+	/* This method calls the list of defaulters, 
+	which stores the name of people who paid their dues after due date */
 	@GetMapping("/api/debtCollection/listOfdefaulters")
 	public ArrayList<String> dispdefaultersList()
 	{
 		return pts.displayDefaulterList();
 	}
 	
-	//creating a GET request for getting a row from the table payment_track
+	//creating a GET request for getting a(singular) row of details from the table payment_track
 	@GetMapping("/get/{paymentTrackId}")
 	public PaymentTrack getpay(@PathVariable String paymentTrackId)
 	{
@@ -64,15 +56,10 @@ public class PaymentTrackController {
 	}
 	
 	//creating a POST request for adding data into the table payment_track
-	@PostMapping("/postpay")
+	@PostMapping("/api/debtCollection/create")
 	public PaymentTrack addpay(@RequestBody PaymentTrack pt)
 	{
 		return this.pts.addpay(pt);
 	}
 	
-	/*@PostMapping("ptr/add")
-	public PaymentTrack addPtr(@RequestBody PaymentTrack ptrr) {
-		ptr.add(ptrr);
-		return ptrr;
-	}*/
 }

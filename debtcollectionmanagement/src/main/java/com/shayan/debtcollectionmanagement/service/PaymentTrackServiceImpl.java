@@ -22,36 +22,26 @@ public class PaymentTrackServiceImpl implements PaymentTrackService {
 
 	//@Override annotation to call the interface methods for implementation
 	
-	//to get all the details from the payment_track table
+	/* This function is used for retrieving
+	 * all the details from the payment_track table
+	 * and sending the details(object of repository) to the controller function(getPtr())
+	 */
 	@Override
 	public List<PaymentTrack> getpayment() {
 		return ptr.findAll();
 	}
 	
-	/*public PaymentTrack getpay(String key)
-	{
-		return ptr.getReferenceById(key);
-	}*/
 	
-	/*public PaymentTrack addpay(PaymentTrack pt)
+	/*public PaymentTrack updatepay(PaymentTrack pt)
 	{
 		ptr.save(pt);
 		return pt;
 	}*/
 	
-	public PaymentTrack updatepay(PaymentTrack pt)
-	{
-		ptr.save(pt);
-		return pt;
-	}
-	
-	/*public void deletepay(String paymentTrackId)
-	{
-		PaymentTrack entity=ptr.findById(paymentTrackId);
-		ptr.delete(entity);
-	}*/
-	
-	//used to retrieve a particular row from the payment_track table
+	/* This function is used for
+	 * retrieving a particular row from the payment_track table
+	 * and returning the value to the controller function(getpay())
+	 */
 	@Override
 	public PaymentTrack getpay(String paymentTrackId) {
 		PaymentTrack pt=ptr.findById(paymentTrackId).orElseThrow(()->new RuntimeException());
@@ -61,13 +51,22 @@ public class PaymentTrackServiceImpl implements PaymentTrackService {
 	//used to add new details to the payment_track table
 	@Override
 	public PaymentTrack addpay(PaymentTrack pt) {
+		/*
+		 * Over here, we are checking, if the loan amount is above 0 and status of loan paid is recieved or not recieved
+		 * Other wise it won't store the detail into the payment_track table 
+		 */
 		if(pt.getloanAmt()>0 && (pt.getStatus().equalsIgnoreCase("Recieved") || pt.getStatus().equalsIgnoreCase("Not Recieved")))
 		{
 			int datecomp=(pt.getPaymentRecieveDate()).compareTo(pt.getDueDateofPayment());
+			/*
+			 * here we are creating a condtion for getting the names for defaulters list
+			 * The compareTo function is used to compare the dates and give a value
+			 */
 			if(datecomp<=0 && pt.getStatus().equalsIgnoreCase("Recieved")) {
 		    ptr.save(pt);}
 			else if((datecomp>0 && pt.getStatus().equalsIgnoreCase("Not Recieved"))||(datecomp>0 && pt.getStatus().equalsIgnoreCase("Recieved")))
 			{
+				//here we are adding the names of customer who fall in the defaulters category
 				defaulterslist.add(pt.getCustName());
 				ptr.save(pt);
 			}
@@ -75,6 +74,7 @@ public class PaymentTrackServiceImpl implements PaymentTrackService {
 		return pt;
 	}
 	
+	//This function passes the ArrayList name defaultersList to controller's function dispdefaultersList()
 	@Override
 	public ArrayList<String> displayDefaulterList()
 	{

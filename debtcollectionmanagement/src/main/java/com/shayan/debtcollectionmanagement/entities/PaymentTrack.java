@@ -32,7 +32,10 @@ public class PaymentTrack {
 	@Id
 	private String paymentTrackId;
 	
+	//stores the loanAppId from loanApplicationTable
 	private String loanAppId;
+	
+	//stores the month number of giving the loan
 	private int month_no;
 	private String custName;
 	
@@ -41,10 +44,14 @@ public class PaymentTrack {
 	
 	//default value of status is set to Not Received
 	
+	//stores the status of payment, is either recieved or not recieved
 	@Column(columnDefinition = "varchar(255) default 'Not Recieved'")
 	private String status;
 	
+	//stores the date before which payment must be made
 	private Date dueDateofPayment;
+	
+	//stores the date when payment gets recieved
 	private Date paymentRecieveDate;
 	
 	//creating getters and setters for the class variables
