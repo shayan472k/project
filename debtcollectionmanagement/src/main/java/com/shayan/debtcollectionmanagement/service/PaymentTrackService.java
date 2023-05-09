@@ -1,5 +1,6 @@
 package com.shayan.debtcollectionmanagement.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.shayan.debtcollectionmanagement.entities.*;
@@ -12,5 +13,7 @@ public interface PaymentTrackService {
 	public PaymentTrack getpay(String paymentTrackId);
 	
 	public PaymentTrack addpay(PaymentTrack pt);
+
+	public ArrayList<String> displayDefaulterList();
 	
 }

@@ -50,6 +50,12 @@ public class PaymentTrackController {
 		return (ArrayList<PaymentTrack>) this.pts.getpayment();
 	}
 	
+	@GetMapping("/api/debtCollection/listOfdefaulters")
+	public ArrayList<String> dispdefaultersList()
+	{
+		return pts.displayDefaulterList();
+	}
+	
 	//creating a GET request for getting a row from the table payment_track
 	@GetMapping("/get/{paymentTrackId}")
 	public PaymentTrack getpay(@PathVariable String paymentTrackId)

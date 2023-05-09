@@ -3,10 +3,12 @@ package com.shayan.debtcollectionmanagement.entities;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Value;
+//import jakarta.*;
 
 //creating a class as an entity to store into the database
 
@@ -32,10 +34,14 @@ public class PaymentTrack {
 	
 	private String loanAppId;
 	private int month_no;
+	private String custName;
+	
+	//@Min(value = 18, message = "Age should not be less than 18")
+	private int loanAmt;
 	
 	//default value of status is set to Not Received
 	
-	@Value("Not Received")
+	@Column(columnDefinition = "varchar(255) default 'Not Recieved'")
 	private String status;
 	
 	private Date dueDateofPayment;
@@ -77,6 +83,22 @@ public class PaymentTrack {
 	}
 	public void setPaymentRecieveDate(Date paymentRecieveDate) {
 		this.paymentRecieveDate = paymentRecieveDate;
+	}
+	public int getloanAmt()
+	{
+		return loanAmt;
+	}
+	public void setloanAmt(int loanAmt)
+	{
+		this.loanAmt=loanAmt;
+	}
+	public String getCustName()
+	{
+		return custName;
+	}
+	public void setCustName(String custName)
+	{
+		this.custName=custName;
 	}
 
 }
