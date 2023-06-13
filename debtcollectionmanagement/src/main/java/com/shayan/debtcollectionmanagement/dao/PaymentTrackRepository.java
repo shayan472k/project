@@ -1,5 +1,10 @@
 package com.shayan.debtcollectionmanagement.dao;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,4 +21,7 @@ public interface PaymentTrackRepository extends JpaRepository<PaymentTrack, Stri
 	
 	//This is the Mockito testing function, used to Mock the PaymentTrackRepository
 	Boolean isPaymentExistById(String paymentTrackId);
+	ArrayList<PaymentTrack> findByStatus(String status);
+	//ArrayList<PaymentTrack> findByDueDateofPayment(LocalDate dueDateofPayment);
+	
 }

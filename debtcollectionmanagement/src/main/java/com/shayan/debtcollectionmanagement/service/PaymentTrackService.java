@@ -1,5 +1,6 @@
 package com.shayan.debtcollectionmanagement.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,4 +17,10 @@ public interface PaymentTrackService {
 
 	public ArrayList<String> displayDefaulterList();
 	
+	public PaymentTrack updatePayment(PaymentTrack pt, String paymentTrackId);
+	
+	public ArrayList<PaymentTrack> findStatus(String s);
+
+	public List<PaymentTrack> findDefaults(String monthnyear);
+
 }

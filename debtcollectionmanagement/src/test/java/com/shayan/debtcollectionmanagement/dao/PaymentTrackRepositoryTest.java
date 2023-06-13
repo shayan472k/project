@@ -24,7 +24,7 @@ class PaymentTrackRepositoryTest {
 		//PaymentTrack payment=new PaymentTrack("3","3",3);
 		//ptrepo.save(payment);
 		//this function returns true, if the paymentId provided exists
-		when(ptrepo.isPaymentExistById("4")).thenReturn(true);
+		when(ptrepo.isPaymentExistById("3")).thenReturn(true);
 		Boolean actualResult=ptrepo.isPaymentExistById("3");
 		//assertThat function checks with the corresponding when() function and match both of the results
 		assertThat(actualResult).isTrue();

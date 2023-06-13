@@ -1,7 +1,13 @@
 package com.shayan.debtcollectionmanagement.service;
 
 import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,17 +37,6 @@ public class PaymentTrackServiceImpl implements PaymentTrackService {
 		return ptr.findAll();
 	}
 	
-	
-	/*public PaymentTrack updatepay(PaymentTrack pt)
-	{
-		ptr.save(pt);
-		return pt;
-	}*/
-	
-	/* This function is used for
-	 * retrieving a particular row from the payment_track table
-	 * and returning the value to the controller function(getpay())
-	 */
 	@Override
 	public PaymentTrack getpay(String paymentTrackId) {
 		PaymentTrack pt=ptr.findById(paymentTrackId).orElseThrow(()->new RuntimeException());
@@ -55,7 +50,7 @@ public class PaymentTrackServiceImpl implements PaymentTrackService {
 		 * Over here, we are checking, if the loan amount is above 0 and status of loan paid is recieved or not recieved
 		 * Other wise it won't store the detail into the payment_track table 
 		 */
-		if(pt.getloanAmt()>0 && (pt.getStatus().equalsIgnoreCase("Recieved") || pt.getStatus().equalsIgnoreCase("Not Recieved")))
+		if(pt.getloanAmt()>0)
 		{
 			int datecomp=(pt.getPaymentRecieveDate()).compareTo(pt.getDueDateofPayment());
 			/*
@@ -79,5 +74,38 @@ public class PaymentTrackServiceImpl implements PaymentTrackService {
 	public ArrayList<String> displayDefaulterList()
 	{
 		return defaulterslist;
+	}
+
+
+	public PaymentTrack updatePayment(PaymentTrack pt, String paymentTrackId) {
+		PaymentTrack ptt=ptr.findById(paymentTrackId).orElseThrow(()->new RuntimeException());
+		ptt.setStatus(pt.getStatus());
+		ptr.save(ptt);
+		return pt;
+	}
+	@Override
+	public ArrayList<PaymentTrack> findStatus(String s) {
+		ArrayList<PaymentTrack> ptt=ptr.findByStatus(s);
+		return ptt;
+	}
+
+	@Override
+	public List<PaymentTrack> findDefaults(String monthnyear){
+		// TODO Auto-generated method stub
+		//String d="-15";
+		//String start=monthnyear+d;
+		List<PaymentTrack> pt1=this.ptr.findAll();
+		List<PaymentTrack> pt2= new ArrayList<>();
+		LocalDate d1= LocalDate.parse(monthnyear+"-15");
+		LocalDate d2= LocalDate.parse(monthnyear+"-30");
+		for(PaymentTrack p:pt1)
+		{
+			//System.out.print(p.toString());
+			if(((p.getPaymentRecieveDate().isAfter(d1)))&&((p.getPaymentRecieveDate().isBefore(d2))))
+			{
+				pt2.add(p);
+			}
+		}
+		return pt2;
 	}
 }
